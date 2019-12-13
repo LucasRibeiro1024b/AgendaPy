@@ -1,6 +1,4 @@
-#Projeto de uma agenda de telefone em Python
+#Projeto de agenda em Python
 #
-#Intuito de ser usado para aquisição de nota para a terceira avaliação da disciplina de
-#Linguagens de Programação I da Universidade do Vale do Acaráu.
-#
+#Desenvolvida para aquisição de nota avaliativa na disciplina Linguagem de Programação 1
 #
