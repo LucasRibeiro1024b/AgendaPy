@@ -9,14 +9,14 @@ def bt_color():
 
 janela = Tk()
 
-bt = Button(janela, width=20, text="OK", command=bt_click)
-bt.place(x=100, y=100)
+bt = Button(janela, width=10, text="OK", command=bt_click)
+bt.place(x=10, y=100)
 
-bt2 = Button(janela, width=20, text="OK", command=bt_color)
-bt2.place(x=100, y=50)
+bt2 = Button(janela, width=10, text="OK", command=bt_color)
+bt2.place(x=10, y=50)
 
 lb = Label(janela, text="Teste")
-lb.place(x=100, y=150)
+lb.place(x=10, y=150)
 
 janela.geometry("300x300+200+200")
 janela.mainloop()
