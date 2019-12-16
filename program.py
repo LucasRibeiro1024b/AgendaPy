@@ -18,5 +18,5 @@ bt2.place(x=10, y=50)
 lb = Label(janela, text="Teste")
 lb.place(x=10, y=150)
 
-janela.geometry("300x300+200+200")
+janela.geometry("300x600+200+200")
 janela.mainloop()
