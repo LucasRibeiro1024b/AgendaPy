@@ -5,11 +5,23 @@ from random import *
 #Importando biblioteca base do sql
 import sqlite3
 conn = sqlite3.connect("base.db")
+cursor = conn.cursor()
+
+cursor.execute("""CREATE TABLE Contatos (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            numero INTEGER,
+            email TEXT NOT NULL
+);
+""")
+print("Tabela criada")
 
 
 janela = Tk()
 
 #funções
+def inserir():
+    print("Inserir contato")
 
 def bt_click(but):
     print(but)
@@ -56,3 +68,4 @@ lb.place(x=10, y=150)
 #tamanho da janela e loop do programa
 janela.geometry("350x400+200+200")
 janela.mainloop()
+conn.close()
