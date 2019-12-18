@@ -2,9 +2,17 @@ from tkinter import *
 from functools import partial
 from random import *
 
+#Importando biblioteca base do sql
+import sqlite3
+conn = sqlite3.connect("base.db")
+
+
+janela = Tk()
+
 #funções
 
 def bt_click(but):
+    print(but)
     lb["text"] = "Posso enviar agora, nice man "
 
 def bt_color():
@@ -12,10 +20,11 @@ def bt_color():
     i = randint(0, 3)
     janela["background"] = cores[i]
 
-#botões e janelas
+def bt_get():
+    lb["text"] = textfield.get()
 
-janela = Tk()
-
+#Head
+    
 intro = Label(janela, text="Sistema de cadastro de telefone")
 intro.place(x=75, y=10)
 
@@ -26,12 +35,20 @@ textfield = Entry(janela)
 textfield["width"] = "10"
 textfield.place(x=80, y=30)
 
-butt1 = Button(janela, width=30, text="change text and send text")
-butt1["command"] = partial(bt_click, butt1)
-butt1.place(x=10, y=100)
+bott3 = Button(janela, width=10, text="Click do Entry", command=bt_get)
+bott3.place(x=175, y=30)
+
+#Body
 
 butt2 = Button(janela, width=10, text="Change color", command=bt_color)
-butt2.place(x=10, y=50)
+butt2
+butt2.place(x=10, y=55)
+
+butt1 = Button(janela, width=30, text="change text and send text")
+#butt1["command"] = partial(bt_click, butt1)
+butt1.place(x=10, y=100)
+
+#Testing field
 
 lb = Label(janela, text="Teste")
 lb.place(x=10, y=150)
