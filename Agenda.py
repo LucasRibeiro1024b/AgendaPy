@@ -8,12 +8,11 @@ conn = sqlite3.connect("base.db")
 cursor = conn.cursor()
 
 cursor.execute("""CREATE TABLE Contatos (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL,
-            numero INTEGER,
-            email TEXT NOT NULL
-);
-""")
+               id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+               nome TEXT NOT NULL,
+               numero INTEGER,
+               email TEXT NOT NULL
+               );""")
 print("Tabela criada")
 
 
