@@ -7,14 +7,14 @@ import sqlite3
 conn = sqlite3.connect("base.db")
 cursor = conn.cursor()
 
-cursor.execute("""CREATE TABLE Contatos (
+'''cursor.execute("""CREATE TABLE Contatos (
                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                nome TEXT NOT NULL,
                numero INTEGER,
                email TEXT NOT NULL
                );""")
 print("Tabela criada")
-
+'''
 
 janela = Tk()
 
@@ -57,12 +57,15 @@ butt2.place(x=10, y=55)
 
 butt1 = Button(janela, width=30, text="change text and send text")
 #butt1["command"] = partial(bt_click, butt1)
-butt1.place(x=10, y=100)
+butt1.place(x=10, y=95)
+
+id_bt = Button(janela, width=10, text="Id")
+id_bt.place(x=10, y=130)
 
 #Testing field
 
 lb = Label(janela, text="Teste")
-lb.place(x=10, y=150)
+lb.place(x=10, y=350)
 
 #tamanho da janela e loop do programa
 janela.geometry("350x400+200+200")
