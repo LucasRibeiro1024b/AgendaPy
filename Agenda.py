@@ -37,28 +37,19 @@ def bt_get():
 
 #Head
     
-intro = Label(janela, text="Sistema de cadastro de telefone")
+intro = Label(janela, text="Agenda")
 intro.place(x=75, y=10)
 
-pos = Label(janela, text="Codigo :")
-pos.place(x=20, y=30)
+pos = Label(janela, text="ID :")
+pos.place(x=10, y=30)
+pos_text = Entry(janela)
+pos_text["width"] = "10"
+pos_text.place(x=80, y=30)
 
-textfield = Entry(janela)
-textfield["width"] = "10"
-textfield.place(x=80, y=30)
-
-bott3 = Button(janela, width=10, text="Click do Entry", command=bt_get)
+bott3 = Button(janela, width=10, text="Pesquisar ID", command=bt_get)
 bott3.place(x=175, y=30)
 
 #Body
-
-butt2 = Button(janela, width=10, text="Change color", command=bt_color)
-butt2.place(x=10, y=55)
-
-butt1 = Button(janela, width=30, text="change text and send text")
-#butt1["command"] = partial(bt_click, butt1)
-butt1.place(x=10, y=95)
-
 
 id_lb = Label(janela, text="Id")
 id_lb.place(x=10, y=130)
