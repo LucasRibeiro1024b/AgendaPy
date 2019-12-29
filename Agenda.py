@@ -4,8 +4,9 @@ from random import *
 import os
 import sqlite3
 
+janela = Tk()
+conn = sqlite3.connect("base.db")
 #Functions
-
 def create_bd():
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
@@ -25,18 +26,20 @@ def del_bd():
         print('removendo arquivo')
         os.remove('{}/{}' .format(pasta, arquivo))
         print('removido')
+        conn.close()
     else:
         print('Arquivo não encontrado')
 
-janela = Tk()
-
 #funções
 def inserir():
-    print("Inserir contato")
+    print("Inserir contato pelo o id")
+
+def remover():
+    print("Remover contato pelo o id")
 
 def bt_click(but):
     print(but)
-    lb["text"] = "Posso enviar agora, nice man "
+    lb["text"] = "Posso enviar agora, nice man {}"
 
 def bt_color():
     cores = ["blue", "red", "black", "green"]
