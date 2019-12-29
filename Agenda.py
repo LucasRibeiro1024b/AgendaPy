@@ -38,7 +38,7 @@ def del_bd():
 def inserir():
     id_c = Id_text.get()
     name_c = nome_text.get()
-    numero_c = numero_text.get()
+    numero_c = numero_text.get().isnumeric()
     email_c = email_text.get()
 
     cursor.execute("""
@@ -50,9 +50,9 @@ def inserir():
 def remover():
     id_c = Id_text.get()
     cursor.execute("""
-        DELETE FROM Contatos
-        WHERE id = ?
+    DELETE FROM Contatos WHERE id = ?
     """, (id_c))
+    
     conn.commit()
 
 def bt_click(but):
@@ -65,41 +65,47 @@ def bt_color():
     janela["background"] = cores[i]
 
 def bt_get():
-    lb["text"] = textfield.get()
+    Log_lb["text"] = textfield.get()
 
 #Head
     
 intro = Label(janela, text="Agenda")
 intro.place(x=75, y=10)
 
-Id_lb = Label(janela, text="ID :")
-Id_lb.place(x=10, y=30)
+Id_lb = Label(janela, text="ID")
+Id_lb.place(x=10, y=40)
 Id_text = Entry(janela)
 Id_text["width"] = "10"
-Id_text.place(x=80, y=30)
+Id_text.place(x=80, y=40)
 
-bott3 = Button(janela, width=10, text="Pesquisar ID", command=bt_get)
-bott3.place(x=175, y=30)
+search_id = Button(janela, width=10, text="Pesquisar ID", command=bt_get)
+search_id.place(x=175, y=40)
 
 #Body
 
+inserir_bt = Button(janela, width=10, text="Inserir", command=inserir)
+inserir_bt.place(x=10, y=200)
+
+remover_bt = Button(janela, width=10, text="Remover", command=remover)
+remover_bt.place(x=120, y=200)
+
 nome_lb = Label(janela, text="Nome")
-nome_lb.place(x=10, y=155)
+nome_lb.place(x=10, y=110)
 nome_text = Entry(janela)
 nome_text["width"] = "30"
-nome_text.place(x=70, y=155)
+nome_text.place(x=70, y=110)
 
 numero_lb = Label(janela, text="Numero")
-numero_lb.place(x=10, y=180)
+numero_lb.place(x=10, y=140)
 numero_text = Entry(janela)
 numero_text["width"] = "30"
-numero_text.place(x=70, y=180)
+numero_text.place(x=70, y=140)
 
 email_lb = Label(janela, text="Email")
-email_lb.place(x=10, y=205)
+email_lb.place(x=10, y=170)
 email_text = Entry(janela)
 email_text["width"] = "30"
-email_text.place(x=70, y=205)
+email_text.place(x=70, y=170)
 
 bd_bt = Button(janela, width=6, text="Criar BD", command=create_bd)
 bd_bt.place(x=10, y=310)
@@ -109,8 +115,8 @@ delbd_bt.place(x=85, y=310)
 
 #Testing field
 
-lb = Label(janela, text="Teste")
-lb.place(x=10, y=350)
+Log_lb = Label(janela, text="Log")
+Log_lb.place(x=10, y=350)
 
 #tamanho da janela e loop do programa
 janela.geometry("350x400+200+200")
