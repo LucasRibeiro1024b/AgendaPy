@@ -6,16 +6,21 @@ import sqlite3
 
 janela = Tk()
 conn = sqlite3.connect("base.db")
+
 #Functions
+
 def create_bd():
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
-    cursor.execute("""CREATE TABLE Contatos (
-               id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-               nome TEXT NOT NULL,
-               numero INTEGER,
-               email TEXT NOT NULL
-               );""")
+    cursor.execute("""
+    CREATE TABLE Contatos (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        numero INTEGER,
+        email TEXT NOT NULL
+    );
+    """)
+
     print("Tabela criada")
 
 def del_bd():
@@ -23,7 +28,6 @@ def del_bd():
     arquivo = 'base.db'
     diretorio = os.listdir(pasta)
     if arquivo in diretorio:
-        print('removendo arquivo')
         os.remove('{}/{}' .format(pasta, arquivo))
         print('removido')
         conn.close()
@@ -32,10 +36,24 @@ def del_bd():
 
 #funções
 def inserir():
-    print("Inserir contato pelo o id")
+    id_c = Id_text.get()
+    name_c = nome_text.get()
+    numero_c = numero_text.get()
+    email_c = email_text.get()
 
+    cursor.execute("""
+    INSERT INTO Contatos (id, nome, numero, email) VALUES (?, ?, ?, ?)""",
+    (id_c, name_c, numero_c, email.c))
+
+    conn.commit()
+    
 def remover():
-    print("Remover contato pelo o id")
+    id_c = Id_text.get()
+    cursor.execute("""
+        DELETE FROM Contatos
+        WHERE id = ?
+    """, (id_c))
+    conn.commit()
 
 def bt_click(but):
     print(but)
@@ -54,22 +72,16 @@ def bt_get():
 intro = Label(janela, text="Agenda")
 intro.place(x=75, y=10)
 
-pos = Label(janela, text="ID :")
-pos.place(x=10, y=30)
-pos_text = Entry(janela)
-pos_text["width"] = "10"
-pos_text.place(x=80, y=30)
+Id_lb = Label(janela, text="ID :")
+Id_lb.place(x=10, y=30)
+Id_text = Entry(janela)
+Id_text["width"] = "10"
+Id_text.place(x=80, y=30)
 
 bott3 = Button(janela, width=10, text="Pesquisar ID", command=bt_get)
 bott3.place(x=175, y=30)
 
 #Body
-
-id_lb = Label(janela, text="Id")
-id_lb.place(x=10, y=130)
-id_text = Entry(janela)
-id_text["width"] = "10"
-id_text.place(x=70, y=130)
 
 nome_lb = Label(janela, text="Nome")
 nome_lb.place(x=10, y=155)
