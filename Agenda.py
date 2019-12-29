@@ -1,13 +1,14 @@
 from tkinter import *
 from functools import partial
 from random import *
-
-#Importando biblioteca base do sql
+import os
 import sqlite3
-conn = sqlite3.connect("base.db")
-cursor = conn.cursor()
+
+#Functions
 
 def create_bd():
+    conn = sqlite3.connect("base.db")
+    cursor = conn.cursor()
     cursor.execute("""CREATE TABLE Contatos (
                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                nome TEXT NOT NULL,
@@ -16,6 +17,16 @@ def create_bd():
                );""")
     print("Tabela criada")
 
+def del_bd():
+    pasta = "/home/lucas/Documents/TKINTER"
+    arquivo = 'base.db'
+    diretorio = os.listdir(pasta)
+    if arquivo in diretorio:
+        print('removendo arquivo')
+        os.remove('{}/{}' .format(pasta, arquivo))
+        print('removido')
+    else:
+        print('Arquivo não encontrado')
 
 janela = Tk()
 
@@ -75,8 +86,11 @@ email_text = Entry(janela)
 email_text["width"] = "30"
 email_text.place(x=70, y=205)
 
-bd_bt = Button(janela, width=10, text="Criar BD", command=create_bd)
-bd_bt.place(x=120, y=350)
+bd_bt = Button(janela, width=6, text="Criar BD", command=create_bd)
+bd_bt.place(x=10, y=310)
+
+delbd_bt = Button(janela, width=6, text="Delete BD", command=del_bd)
+delbd_bt.place(x=85, y=310)
 
 #Testing field
 
