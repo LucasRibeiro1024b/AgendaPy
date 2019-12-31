@@ -5,11 +5,11 @@ import os
 import sqlite3
 
 janela = Tk()
-conn = sqlite3.connect("base.db")
 
-#Functions
-
-def create_bd():
+pasta = "/home/lucas/Documents/TKINTER"
+arquivo = 'base.db'
+diretorio = os.listdir(pasta)
+if arquivo not in diretorio:
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
     cursor.execute("""
@@ -20,8 +20,12 @@ def create_bd():
         email TEXT NOT NULL
     );
     """)
-
     print("Tabela criada")
+else:
+    conn = sqlite3.connect("base.db")
+    cursor = conn.cursor()
+    
+#functions
 
 def del_bd():
     pasta = "/home/lucas/Documents/TKINTER"
@@ -42,9 +46,13 @@ def inserir():
 
     cursor.execute("""
     INSERT INTO Contatos (nome, numero, email) VALUES (?, ?, ?)""",
-    (name_c, numero_c, email.c))
+    (name_c, numero_c, email_c))
 
     conn.commit()
+
+    nome_text.delete(0, END)
+    numero_text.delete(0, END)
+    email_text.delete(0, END)
     
 def remover():
     id_c = Id_text.get()
@@ -54,9 +62,19 @@ def remover():
     
     conn.commit()
 
+    nome_text.delete(0, END)
+    numero_text.delete(0, END)
+    email_text.delete(0, END)
+    
 def search_id():
     id_c = int(Id_text.get())
-    
+
+    cursor.execute("""
+    SELECT * FROM Contatos;
+    """)
+
+    for linha in cursor.fetchall():
+        print(linha)
 
 #Head
     
@@ -97,9 +115,6 @@ email_lb.place(x=10, y=170)
 email_text = Entry(janela)
 email_text["width"] = "30"
 email_text.place(x=70, y=170)
-
-bd_bt = Button(janela, width=6, text="Criar BD", command=create_bd)
-bd_bt.place(x=10, y=310)
 
 delbd_bt = Button(janela, width=6, text="Delete BD", command=del_bd)
 delbd_bt.place(x=85, y=310)
