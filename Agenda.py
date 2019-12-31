@@ -74,7 +74,15 @@ def search_id():
     """)
 
     for linha in cursor.fetchall():
-        print(linha)
+        if (linha[0] == id_c):
+            nome_text.delete(0, END)
+            nome_text.insert(END, linha[1])
+
+            numero_text.delete(0, END)
+            numero_text.insert(END, linha[2])
+            
+            email_text.delete(0, END)
+            email_text.insert(END, linha[3])
 
 #Head
     
