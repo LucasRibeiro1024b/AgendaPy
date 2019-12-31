@@ -1,6 +1,4 @@
 from tkinter import *
-from functools import partial
-from random import *
 import os
 import sqlite3
 
@@ -26,7 +24,7 @@ else:
     cursor = conn.cursor()
     
 #functions
-
+'''
 def del_bd():
     pasta = "/home/lucas/Documents/TKINTER"
     arquivo = 'base.db'
@@ -37,19 +35,21 @@ def del_bd():
         conn.close()
     else:
         print('Arquivo não encontrado')
+'''
 
-#funções
 def inserir():
+    id_c = int(Id_text.get())
     name_c = nome_text.get()
     numero_c = int(numero_text.get())
     email_c = email_text.get()
 
     cursor.execute("""
-    INSERT INTO Contatos (nome, numero, email) VALUES (?, ?, ?)""",
-    (name_c, numero_c, email_c))
+    INSERT INTO Contatos (id, nome, numero, email) VALUES (?, ?, ?, ?)""",
+    (id_c, name_c, numero_c, email_c))
 
     conn.commit()
 
+    Id_text.delete(0, END)
     nome_text.delete(0, END)
     numero_text.delete(0, END)
     email_text.delete(0, END)
@@ -62,6 +62,7 @@ def remover():
     
     conn.commit()
 
+    Id_text.delete(0, END)
     nome_text.delete(0, END)
     numero_text.delete(0, END)
     email_text.delete(0, END)
@@ -72,7 +73,7 @@ def search_id():
     cursor.execute("""
     SELECT * FROM Contatos;
     """)
-
+    
     for linha in cursor.fetchall():
         if (linha[0] == id_c):
             nome_text.delete(0, END)
@@ -124,8 +125,10 @@ email_text = Entry(janela)
 email_text["width"] = "30"
 email_text.place(x=70, y=170)
 
+'''
 delbd_bt = Button(janela, width=6, text="Delete BD", command=del_bd)
 delbd_bt.place(x=85, y=310)
+'''
 
 #Testing field
 
