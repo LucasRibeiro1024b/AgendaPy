@@ -36,14 +36,13 @@ def del_bd():
 
 #funções
 def inserir():
-    id_c = Id_text.get()
     name_c = nome_text.get()
-    numero_c = numero_text.get().isnumeric()
+    numero_c = int(numero_text.get())
     email_c = email_text.get()
 
     cursor.execute("""
-    INSERT INTO Contatos (id, nome, numero, email) VALUES (?, ?, ?, ?)""",
-    (id_c, name_c, numero_c, email.c))
+    INSERT INTO Contatos (nome, numero, email) VALUES (?, ?, ?)""",
+    (name_c, numero_c, email.c))
 
     conn.commit()
     
@@ -55,17 +54,9 @@ def remover():
     
     conn.commit()
 
-def bt_click(but):
-    print(but)
-    lb["text"] = "Posso enviar agora, nice man {}"
-
-def bt_color():
-    cores = ["blue", "red", "black", "green"]
-    i = randint(0, 3)
-    janela["background"] = cores[i]
-
-def bt_get():
-    Log_lb["text"] = textfield.get()
+def search_id():
+    id_c = int(Id_text.get())
+    
 
 #Head
     
@@ -78,7 +69,7 @@ Id_text = Entry(janela)
 Id_text["width"] = "10"
 Id_text.place(x=80, y=40)
 
-search_id = Button(janela, width=10, text="Pesquisar ID", command=bt_get)
+search_id = Button(janela, width=10, text="Pesquisar ID", command=search_id)
 search_id.place(x=175, y=40)
 
 #Body
