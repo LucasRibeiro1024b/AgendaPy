@@ -18,7 +18,6 @@ if arquivo not in diretorio:
         email TEXT NOT NULL
     );
     """)
-    print("Tabela criada")
 else:
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
@@ -129,11 +128,6 @@ email_text.place(x=70, y=170)
 delbd_bt = Button(janela, width=6, text="Delete BD", command=del_bd)
 delbd_bt.place(x=85, y=310)
 '''
-
-#Testing field
-
-Log_lb = Label(janela, text="Log")
-Log_lb.place(x=10, y=350)
 
 #tamanho da janela e loop do programa
 janela.geometry("350x400+200+200")
