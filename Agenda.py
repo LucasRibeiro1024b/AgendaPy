@@ -33,6 +33,14 @@ def del_bd():
     else:
         print('Arquivo não encontrado')
 '''
+def limpar():
+    Id_text.delete(0, END)
+    nome_text.delete(0, END)
+    numero_text.delete(0, END)
+    email_text.delete(0, END)
+    nome_error["text"] = ""
+    numero_error["text"] = ""
+    email_error["text"] = ""
 
 def inserir():
     conn = sqlite3.connect("base.db")
@@ -73,10 +81,7 @@ def inserir():
 
         conn.commit()
 
-        Id_text.delete(0, END)
-        nome_text.delete(0, END)
-        numero_text.delete(0, END)
-        email_text.delete(0, END)
+        limpar()
 
     conn.close()
     
@@ -90,13 +95,10 @@ def remover():
     """, (id_c))
     
     conn.commit()
-
-    Id_text.delete(0, END)
-    nome_text.delete(0, END)
-    numero_text.delete(0, END)
-    email_text.delete(0, END)
-
     conn.close()
+    
+    limpar()
+
 
 def alterar():
     conn = sqlite3.connect("base.db")
@@ -139,10 +141,7 @@ def alterar():
 
         conn.commit()
 
-        Id_text.delete(0, END)
-        nome_text.delete(0, END)
-        numero_text.delete(0, END)
-        email_text.delete(0, END)
+        limpar()
     
     conn.close()
 
@@ -158,7 +157,6 @@ def search_id():
         """, (id_c,))
     
         for linha in cursor.fetchall():
-            print(linha)
             if (linha[0] == id_c):
                 test = True
                 nome_text.delete(0, END)
@@ -171,9 +169,8 @@ def search_id():
                 email_text.insert(END, linha[3])
                 
     except:
-        nome_text.delete(0, END)
-        numero_text.delete(0, END)
-        email_text.delete(0, END)
+        limpar()
+        
     conn.close()
 
 #Head
