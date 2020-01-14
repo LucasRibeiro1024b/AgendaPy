@@ -68,6 +68,7 @@ def remover():
     
 def search_id():
     id_c = int(Id_text.get())
+    test = False
 
     cursor.execute("""
     SELECT * FROM Contatos;
@@ -75,6 +76,7 @@ def search_id():
     
     for linha in cursor.fetchall():
         if (linha[0] == id_c):
+            test = True
             nome_text.delete(0, END)
             nome_text.insert(END, linha[1])
 
@@ -83,6 +85,13 @@ def search_id():
             
             email_text.delete(0, END)
             email_text.insert(END, linha[3])
+
+    if (not test):
+        nome_text.delete(0, END)
+
+        numero_text.delete(0, END)
+            
+        email_text.delete(0, END)
 
 #Head
     
