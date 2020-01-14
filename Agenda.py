@@ -120,18 +120,24 @@ nome_lb.place(x=10, y=110)
 nome_text = Entry(janela)
 nome_text["width"] = "30"
 nome_text.place(x=70, y=110)
+nome_error = Label(janela, text="")
+nome_error.place(x=350, y=110)
 
 numero_lb = Label(janela, text="Numero")
 numero_lb.place(x=10, y=140)
 numero_text = Entry(janela)
 numero_text["width"] = "30"
 numero_text.place(x=70, y=140)
+numero_error = Label(janela, text="")
+numero_error.place(x=350, y=140)
 
 email_lb = Label(janela, text="Email")
 email_lb.place(x=10, y=170)
 email_text = Entry(janela)
 email_text["width"] = "30"
 email_text.place(x=70, y=170)
+email_error = Label(janela, text="")
+email_error.place(x=350, y=170)
 
 '''
 delbd_bt = Button(janela, width=6, text="Delete BD", command=del_bd)
@@ -139,6 +145,6 @@ delbd_bt.place(x=85, y=310)
 '''
 
 #tamanho da janela e loop do programa
-janela.geometry("350x400+200+200")
+janela.geometry("400x280+100+200")
 janela.mainloop()
 conn.close()
