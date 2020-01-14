@@ -1,6 +1,7 @@
 from tkinter import *
 import os
 import sqlite3
+import re
 
 janela = Tk()
 
@@ -14,7 +15,7 @@ if arquivo not in diretorio:
     CREATE TABLE Contatos (
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome TEXT NOT NULL,
-        numero INTEGER,
+        numero TEXT NOT NULL,
         email TEXT NOT NULL
     );
     """)
@@ -39,19 +40,43 @@ def del_bd():
 def inserir():
     id_c = int(Id_text.get())
     name_c = nome_text.get()
-    numero_c = int(numero_text.get())
+    numero_c = numero_text.get()
     email_c = email_text.get()
 
-    cursor.execute("""
-    INSERT INTO Contatos (id, nome, numero, email) VALUES (?, ?, ?, ?)""",
-    (id_c, name_c, numero_c, email_c))
+    all_valid = True
 
-    conn.commit()
+    if len(name_c) <= 40:
+        nome_error["text"] = "OK!"
+    else:
+        all_valid = False
+        nome_error["text"] = "ERROR"
+        nome_text["background"] = "red"
+    
+    if re.match(r'[1-9]{2}[0-9]{9}', numero_c) and len(numero_c) == 11:
+        numero_error["text"] = "OK!"
+    else:
+        all_valid = False
+        numero_error["text"] = "ERROR"
+        numero_text["background"] = "red"
 
-    Id_text.delete(0, END)
-    nome_text.delete(0, END)
-    numero_text.delete(0, END)
-    email_text.delete(0, END)
+    if re.match(r'^[\w-]+@[a-z\d]+\.[\w]{3}', email_c):
+        email_error["text"] = "OK!"
+    else:
+        all_valid = False
+        email_error["text"] = "ERROR"
+        email_text["background"] = "red"
+
+    if all_valid:
+        cursor.execute("""
+        INSERT INTO Contatos (id, nome, numero, email) VALUES (?, ?, ?, ?)""",
+        (id_c, name_c, numero_c, email_c))
+
+        conn.commit()
+
+        Id_text.delete(0, END)
+        nome_text.delete(0, END)
+        numero_text.delete(0, END)
+        email_text.delete(0, END)
     
 def remover():
     id_c = Id_text.get()
@@ -109,7 +134,7 @@ search_id.place(x=175, y=40)
 
 #Body
 
-inserir_bt = Button(janela, width=10, text="Inserir", command=inserir)
+inserir_bt = Button(janela, width=10, text="Inserir/Alterar", command=inserir)
 inserir_bt.place(x=10, y=200)
 
 remover_bt = Button(janela, width=10, text="Remover", command=remover)
