@@ -19,6 +19,7 @@ if arquivo not in diretorio:
         email TEXT NOT NULL
     );
     """)
+    conn.close()
     
 #functions
 '''
@@ -95,9 +96,9 @@ def remover():
     """, (id_c))
     
     conn.commit()
-    conn.close()
     
     limpar()
+    conn.close()
 
 
 def alterar():
@@ -159,13 +160,11 @@ def search_id():
         for linha in cursor.fetchall():
             if (linha[0] == id_c):
                 test = True
-                nome_text.delete(0, END)
+
+                limpar()
+                
                 nome_text.insert(END, linha[1])
-    
-                numero_text.delete(0, END)
                 numero_text.insert(END, linha[2])
-            
-                email_text.delete(0, END)
                 email_text.insert(END, linha[3])
                 
     except:
