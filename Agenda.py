@@ -35,14 +35,16 @@ def del_bd():
         print('Arquivo não encontrado')
 '''
 def limpar():
-    Id_text.delete(0, END)
     nome_text.delete(0, END)
     numero_text.delete(0, END)
     email_text.delete(0, END)
     nome_error["text"] = ""
     numero_error["text"] = ""
     email_error["text"] = ""
-
+    nome_text["background"] = "white"
+    numero_text["background"] = "white"
+    email_text["background"] = "white"
+    
 def inserir():
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
@@ -152,6 +154,8 @@ def search_id():
     
     id_c = int(Id_text.get())
 
+    test = False
+    
     try:
         cursor.execute("""
         SELECT * FROM Contatos WHERE id=?;
@@ -169,19 +173,22 @@ def search_id():
                 
     except:
         limpar()
-        
+
+    if (not test):
+        limpar()
+    
     conn.close()
 
 #Head
     
 intro = Label(janela, text="Agenda")
-intro.place(x=75, y=10)
+intro.place(x=100, y=10)
 
 Id_lb = Label(janela, text="ID")
 Id_lb.place(x=10, y=40)
 Id_text = Entry(janela)
 Id_text["width"] = "10"
-Id_text.place(x=80, y=40)
+Id_text.place(x=70, y=40)
 
 search_id = Button(janela, width=10, text="Pesquisar ID", command=search_id)
 search_id.place(x=175, y=40)
@@ -227,6 +234,6 @@ delbd_bt.place(x=85, y=310)
 '''
 
 #tamanho da janela e loop do programa
-janela.geometry("400x280+100+200")
+janela.geometry("400x280+450+200")
 janela.mainloop()
 conn.close()
