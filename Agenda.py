@@ -21,7 +21,8 @@ if arquivo not in diretorio:
     """)
     conn.close()
     
-#functions======================================================================
+#functions
+#==============================================================================
 '''
 def del_bd():
     pasta = "/home/lucas/Documents/TKINTER"
@@ -49,7 +50,7 @@ def inserir():
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
     
-    id_c = int(Id_text.get())
+    id_c = Id_text.get()
     name_c = nome_text.get()
     numero_c = numero_text.get()
     email_c = email_text.get()
@@ -152,11 +153,15 @@ def search_id():
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
     
-    id_c = int(Id_text.get())
+    id_c = Id_text.get()
+
+    if (id_c == ""):
+        print("Id vazio")
     
     test = False
     
     try:
+        id_c = int(id_c)
         cursor.execute("""
         SELECT * FROM Contatos WHERE id=?;
         """, (id_c,))
@@ -186,18 +191,18 @@ def relatorio():
     relate = Tk()
 
     label1 = Label(relate, text="ID")
-    label1.grid(row=0, column=0)
+    label1.place(x=1, y=10)
     
     label2 = Label(relate, text="Nome")
-    label2.grid(row=0, column=1)
+    label2.place(x=90, y=10)
 
     label3 = Label(relate, text="Numero")
-    label3.grid(row=0, column=2)
+    label3.place(x=380, y=10)
 
     label4 = Label(relate, text="Email")
-    label4.grid(row=0, column=3)
+    label4.place(x=560, y=10)
     
-    text = Text(relate, width=70, height=50)
+    text = Text(relate, width=99, height=6)
     text.place(x=0, y=30)
 
     conn = sqlite3.connect("base.db")
@@ -209,15 +214,18 @@ def relatorio():
         """)
 
         for linha in cursor.fetchall():
-            text.insert(END, "{} {} {} {}\n" .format(linha[0], linha[1], linha[2], linha[3]))
+            text.insert(END, "{0:2} {1:40} {2:12} {3:1}\n" .format(linha[0], linha[1], linha[2], linha[3]))
     except:
         print("Deu ruim")
 
     conn.close()
-    relate.geometry("600x100+700+210")
+
+    text.config(state=DISABLED)
+    relate.geometry("800x200+700+210")
     relate.mainloop()
 
-#Head===========================================================================
+#Head
+#==============================================================================
     
 intro = Label(janela, text="Agenda")
 intro.place(x=100, y=10)
@@ -231,7 +239,8 @@ Id_text.place(x=70, y=40)
 search_id = Button(janela, width=10, text="Pesquisar ID", command=search_id)
 search_id.place(x=175, y=40)
 
-#Body===========================================================================
+#Body
+#=============================================================================
 
 inserir_bt = Button(janela, width=10, text="Inserir", command=inserir)
 inserir_bt.place(x=10, y=200)
@@ -275,6 +284,8 @@ delbd_bt.place(x=85, y=310)
 '''
 
 #tamanho da janela e loop do programa
+#===============================================================================
 
+janela.title("Agenda")
 janela.geometry("400x280+300+210")
 janela.mainloop()
