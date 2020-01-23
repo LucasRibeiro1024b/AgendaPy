@@ -21,7 +21,7 @@ if arquivo not in diretorio:
     """)
     conn.close()
     
-#functions
+#                                 functions
 #==============================================================================
 '''
 def del_bd():
@@ -50,7 +50,6 @@ def inserir():
     conn = sqlite3.connect("base.db")
     cursor = conn.cursor()
     
-    id_c = Id_text.get()
     name_c = nome_text.get()
     numero_c = numero_text.get()
     email_c = email_text.get()
@@ -80,8 +79,8 @@ def inserir():
 
     if all_valid:
         cursor.execute("""
-        INSERT INTO Contatos (id, nome, numero, email) VALUES (?, ?, ?, ?)""",
-        (id_c, name_c, numero_c, email_c))
+        INSERT INTO Contatos (nome, numero, email) VALUES (?, ?, ?)""",
+        (name_c, numero_c, email_c))
 
         conn.commit()
 
@@ -184,7 +183,7 @@ def search_id():
     
     conn.close()
 
-#Janela realtorio
+#                                 Janela realtorio
 #===============================================================================
 
 def relatorio():
@@ -224,7 +223,7 @@ def relatorio():
     relate.geometry("800x200+700+210")
     relate.mainloop()
 
-#Head
+#                                 Head
 #==============================================================================
     
 intro = Label(janela, text="Agenda")
@@ -239,7 +238,7 @@ Id_text.place(x=70, y=40)
 search_id = Button(janela, width=10, text="Pesquisar ID", command=search_id)
 search_id.place(x=175, y=40)
 
-#Body
+#                                 Body
 #=============================================================================
 
 inserir_bt = Button(janela, width=10, text="Inserir", command=inserir)
@@ -283,9 +282,9 @@ delbd_bt = Button(janela, width=6, text="Delete BD", command=del_bd)
 delbd_bt.place(x=85, y=310)
 '''
 
-#tamanho da janela e loop do programa
+#                  tamanho da janela e loop do programa
 #===============================================================================
 
 janela.title("Agenda")
-janela.geometry("400x280+300+210")
+janela.geometry("400x280+100+210")
 janela.mainloop()
