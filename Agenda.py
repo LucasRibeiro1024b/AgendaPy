@@ -154,9 +154,6 @@ def search_id():
     
     id_c = Id_text.get()
 
-    if (id_c == ""):
-        print("Id vazio")
-    
     test = False
     
     try:
@@ -183,11 +180,11 @@ def search_id():
     
     conn.close()
 
-#                                 Janela realtorio
+#                                 Janela relatório
 #===============================================================================
 
-def relatorio():
-    relate = Tk()
+def relatorio():    
+    relate = Toplevel(janela)
 
     label1 = Label(relate, text="ID")
     label1.place(x=1, y=10)
@@ -201,7 +198,7 @@ def relatorio():
     label4 = Label(relate, text="Email")
     label4.place(x=560, y=10)
     
-    text = Text(relate, width=99, height=6)
+    text = Text(relate, width=99, height=9)
     text.place(x=0, y=30)
 
     conn = sqlite3.connect("base.db")
@@ -258,7 +255,7 @@ nome_text.place(x=70, y=110)
 nome_error = Label(janela, text="")
 nome_error.place(x=350, y=110)
 
-numero_lb = Label(janela, text="Numero")
+numero_lb = Label(janela, text="Número")
 numero_lb.place(x=10, y=140)
 numero_text = Entry(janela)
 numero_text["width"] = "30"
