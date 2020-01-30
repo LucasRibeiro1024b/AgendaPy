@@ -5,7 +5,7 @@ import re
 
 janela = Tk()
 
-pasta = "/home/lucas/Documents/TKINTER"
+pasta = os.getcwd()
 arquivo = 'base.db'
 diretorio = os.listdir(pasta)
 if arquivo not in diretorio:
