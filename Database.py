@@ -9,19 +9,14 @@ class Database():
   def create_table(self):
     c = self.conexao.cursor()
 
-    folder = os.getcwd()
-    dbFile = 'base.db'
-    address = os.listdir(folder)
-
-    if dbFile not in address:
-      c.execute("""
-        CREATE TABLE Contatos (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL,
-            numero TEXT NOT NULL,
-            email TEXT NOT NULL
-        );
-      """)
-      self.conexao.commit()
+    c.execute("""
+      CREATE TABLE IF NOT EXISTS Contatos (
+          id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          number TEXT NOT NULL,
+          email TEXT NOT NULL
+      );
+    """)
+    self.conexao.commit()
 
     c.close()

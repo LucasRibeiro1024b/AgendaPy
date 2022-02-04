@@ -2,76 +2,80 @@ from Database import Database
 
 class Contact(object):
 
-  def __init__(self, idContato = 0, nome = "", numero = "", email = ""):
+  def __init__(self, idContact = 0, name = "", number = "", email = ""):
     self.info = {}
-    self.idContato = idContato
-    self.nome = nome
-    self.numero = numero
+    self.idContact = idContact
+    self.name = name
+    self.number = number
     self.email = email
 
-  def inserirContact(self, arg):
+  def insertContact(self):
     db = Database()
 
-    #try:
-    c = db.conexao.cursor()
+    try:
+      c = db.conexao.cursor()
 
-    c.execute("""
-    INSERT INTO Contatos (nome, numero, email) VALUES (?, ?, ?)""",
-    (self.nome, self.numero, self.email))
+      c.execute("""
+      INSERT INTO contacts (name, number, email) VALUES (?, ?, ?)""",
+      (self.name, self.number, self.email))
+
+      db.conexao.commit()
+      c.close()
+
+      return "Registered with success!"
+    except:
+      return "Something went wrong."
+
+  def updateContact(self):
+    db = Database()
+
+    try:
+      c = db.conexao.cursor()
+
+      c.execute("""
+            UPDATE contacts
+            SET name = (?), number = (?), email = (?)
+            WHERE id = (?)""",
+        (self.name, self.number, self.email, self.idContact))
+
+      db.conexao.commit()
+      c.close()
+
+      return "Contact succesfuly updated."
+    except:
+      return "Something went wrong."
+  
+  def deleteContact(self):
+    db = Database()
+
+    # try:
+    c = db.conexao.cursor()
+    
+    c.execute("""DELETE FROM contacts WHERE id = (?)""", (self.idContact))
 
     db.conexao.commit()
     c.close()
 
-    #   return "Lembrete cadastrado com sucesso!"
+    #   return "Contact deleted."
     # except:
-    #   return "Ocorreu um erro durante a inserção do lembrete."
+    #   return "Something went wrong."
 
-  def atualizarLembrete(self):
-      db = Database()
+  def searchContact(self):
+    db = Database()
 
-      try:
-          c = db.conexao.cursor()
+    try:
+      c = db.conexao.cursor()
 
-          c.execute("UPDATE lembretes SET dataLembrete = {}, textoLembrete = {}, concluidoLembrete = {} WHERE idLembrete = {}".format(self.dataLembrete, self.textoLembrete, self.concluidoLembrete, self.idLembrete))
+      c.execute("""
+        SELECT * FROM contacts WHERE id=?;
+        """, (self.idContact))
 
-          db.conexao.commit()
-          c.close()
+      for linha in c.fetchall():
+        self.name = linha[1]
+        self.number = linha[2]
+        self.email = linha[3]
 
-          return "Atualização de lembrete concluída com sucesso!"
-      except:
-          return "Ocorreu um erro durante a atualização do lembrete."
-  
-  def deletarContact(self):
-      db = Database()
-
-      try:
-          c = db.conexao.cursor()
-          
-          c.execute("DELETE FROM lembretes WHERE idLembrete = {}".format(self.idLembrete))
-
-          db.conexao.commit()
-          c.close()
-
-          return "Lembrete excluído com sucesso!"
-      except:
-          return "Ocorreu um erro durante a exclusão do lembrete."
-
-  def buscarContato(self):
-      db = Database()
-
-      try:
-          c = db.conexao.cursor()
-
-          c.execute("SELECT * FROM lembretes WHERE idLembrete = {}".format(self.idLembrete))
-
-          for linha in c:
-              self.idLembrete = linha[0]
-              self.dataLembrete = linha[1]
-              self.textoLembrete = linha[2]
-              self.concluidoLembrete = linha[3]
-
-          c.close()
-
-          return "Busca realizada com sucesso!"
-      except:
-          return "Ocorreu um erro durante a busca do lembrete."
+      c.close()
+      return "Searched with success!"
+    except:
+      return "Something went wrong."
