@@ -10,7 +10,7 @@ class Database():
     c = self.conexao.cursor()
 
     c.execute("""
-      CREATE TABLE IF NOT EXISTS Contatos (
+      CREATE TABLE IF NOT EXISTS contacts (
           id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           number TEXT NOT NULL,

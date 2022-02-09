@@ -150,13 +150,14 @@ class Application(Frame):
       self.labelResult["text"] = "Invalid inputs."
       
   def report(self):
-    root = Tk()
-    root.title("Report")
-    label = Label(root, text=msg)
-    label.pack(side="top", fill="x", pady=10)
-    B1 = Button(root, text="Okay", command = root.destroy)
-    B1.pack()
-    popup.mainloop()
+    print("dnksajd")
+    # root = Tk()
+    # root.title("Report")
+    # label = Label(root, text=msg)
+    # label.pack(side="top", fill="x", pady=10)
+    # B1 = Button(root, text="Okay", command = root.destroy)
+    # B1.pack()
+    # popup.mainloop()
 
   def validateInputs(self):
     allValid = True
